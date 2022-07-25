@@ -1,0 +1,136 @@
+{% extends 'base.main.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<section class="features-overview" id="features-section">
+			<div class="content-header">
+				<h2>Information et indication</h2>
+				<h6 class="section-subtitle text-muted">Il est tres facile d'evaluer un projet sur notre plateforme.</h6>
+			</div>
+			<div class="d-md-flex justify-content-between">
+				<div class="grid-margin d-flex justify-content-start">
+					<div class="features-width">
+						<img src="{{ asset("main/images/Group12.svg") }}" alt="" class="img-icons">
+						<h5 class="py-3">Rapide<br>Optimiser</h5>
+						<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, accusamus!</p>
+						<a href="#">
+							<p class="readmore-link">lire pus</p>
+						</a>
+					</div>
+				</div>
+				<div class="grid-margin d-flex justify-content-center">
+					<div class="features-width">
+						<img src="{{ asset("main/images/Group7.svg") }}" alt="" class="img-icons">
+						<h5 class="py-3">Vos note<br>sont precieuces</h5>
+						<p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+						<a href="#">
+							<p class="readmore-link">lire pus</p>
+						</a>
+					</div>
+				</div>
+				<div class="grid-margin d-flex justify-content-end">
+					<div class="features-width">
+						<img src="{{ asset("main/images/Group5.svg") }}" alt="" class="img-icons">
+						<h5 class="py-3">Perspectice</h5>
+						<p class="text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+						<a href="#">
+							<p class="readmore-link">lire pus</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-us" id="contact-section">
+			<div class="contact-us-bgimage grid-margin">
+				<div class="pb-4">
+					<h4 class="px-3 px-md-0 m-0" data-aos="fade-down">Aviez-vous un projet a evauler?</h4>
+				</div>
+				<div data-aos="fade-up">
+					<button class="btn btn-rounded btn-outline-danger">Contactez-nous</button>
+				</div>
+			</div>
+		</section>
+		<section class="contact-nous" id="contact-us">
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="Name">Name</label>
+						<input type="text" class="form-control" id="Name" placeholder="Name">
+					</div>
+					<div class="form-group">
+						<label for="Email">Email</label>
+						<input type="email" class="form-control" id="Email-1" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label for="Message">Message</label>
+						<textarea class="form-control" id="Message" placeholder="Enter your Message"></textarea>
+					</div>
+					<button type="submit" class="btn btn-outline-primary">Envoyez</button>
+				</form>
+			</div>
+		</section><br><br>
+
+		<section class="contact-details" id="contact-details-section">
+			<div class="row text-center text-md-left">
+				<div class="col-12 col-md-6 col-lg-3 grid-margin">
+					<img src="{{ asset("main/images/Group2.svg") }}" alt="" class="pb-2">
+					<div class="pt-2">
+						<p class="text-muted m-0">esabidani@gmail.com</p>
+						<p class="text-muted m-0">906-179-8309</p>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 grid-margin">
+					<h5 class="pb-2">Plus d'info</h5>
+					<p class="text-muted">Laisez votre email pour etre informer</p>
+					<form>
+						<input type="text" class="form-control" id="Email" placeholder="Email id">
+					</form>
+					<div class="pt-3">
+						<button class="btn btn-dark">Envoyez</button>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 grid-margin">
+					<h5 class="pb-2">Notre Guide</h5>
+					<a href="#">
+						<p class="m-0 pb-2">Terms</p>
+					</a>
+					<a href="#">
+						<p class="m-0 pt-1 pb-2">Politique prives</p>
+					</a>
+					<a href="#">
+						<p class="m-0 pt-1 pb-2">Politique Cookies</p>
+					</a>
+					<a href="#">
+						<p class="m-0 pt-1">Plus</p>
+					</a>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3 grid-margin">
+					<h5 class="pb-2">Nos adresse</h5>
+					<p class="text-muted">518 Schmeler Neck<br>Bartlett. Illinois</p>
+					<div class="d-flex justify-content-center justify-content-md-start">
+						<a href="#">
+							<span class="mdi mdi-facebook"></span>
+						</a>
+						<a href="#">
+							<span class="mdi mdi-twitter"></span>
+						</a>
+						<a href="#">
+							<span class="mdi mdi-instagram"></span>
+						</a>
+						<a href="#">
+							<span class="mdi mdi-linkedin"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% include "main/includes/footer.html.twig" %}
+		<!-- Modal for Contact - us Button -->
+		{% include "main/contact.html.twig" %}
+	</div>
+{% endblock %}
+{% block stylesheets %}{% endblock %}
