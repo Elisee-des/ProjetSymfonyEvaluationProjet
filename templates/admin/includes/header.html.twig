@@ -1,0 +1,35 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+	<ul class="nav">
+		<li class="nav-item nav-profile border-bottom">
+			<a href="#" class="nav-link flex-column">
+				<div class="nav-profile-image">
+					<img
+					src="{{ asset("../assets/images/faces/face1.jpg") }}" alt="profile"/>
+				<!--change to offline or busy as needed-->
+				</div>
+				<div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
+					<span class="font-weight-semibold mb-1 mt-2 text-center">Administrateur</span>
+				</div>
+			</a>
+		</li>
+		<li class="nav-item pt-3">
+			<a class="nav-link d-block" href="index.html">
+				<img class="sidebar-brand-logo" src="{{ asset("../assets/images/logo.svg") }}" alt=""/>
+				<img class="sidebar-brand-logomini" src="{{ asset("../assets/images/logo-mini.svg") }}" alt=""/>
+			</a>
+		</li><br>
+		<li class="nav-item">
+			<a class="nav-link" href="index.html">
+				<i class="mdi mdi-compass-outline menu-icon"></i>
+				<span class="menu-title">Tableau de Bord</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+				<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+				<span class="menu-title">UI Elements</span>
+				<i class="menu-arrow"></i>
+			</a>
+		</li>
+	</ul>
+</nav>
