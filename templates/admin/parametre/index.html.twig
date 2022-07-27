@@ -1,0 +1,132 @@
+{% extends "base.admin.html.twig" %}
+{% block title %}{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="assets/css/styleParametre.css">
+{% endblock %}
+
+{% block body %}
+	<div
+		class="layout-content">
+
+		<!-- Content -->
+		<div
+			class="container flex-grow-1 container-p-y">
+
+			<!-- Header -->
+			<div class="container-m-nx container-m-ny theme-bg-white mb-4">
+
+				<hr class="m-0">
+			</div>
+			<!-- Header -->
+
+			<div class="row">
+				<div
+					class="col">
+
+					<!-- Info -->
+					<div class="card mb-4">
+						<div class="card-body">
+
+							<div class="row mb-2">
+								<div class="col-md-3 text-muted">Nom et Prenom:</div>
+								<div class="col-md-9">
+									{{ app.user.nomPrenom }}
+								</div>
+							</div>
+
+							<div class="row mb-2">
+								<div class="col-md-3 text-muted">Email:</div>
+								<div class="col-md-9">
+									<a href="javascript:void(0)" class="text-body">{{ app.user.email }}</a>
+								</div>
+							</div>
+
+							<div class="row mb-2">
+								<div class="col-md-3 text-muted">Compte:</div>
+								<div class="col-md-9">
+									{% if app.user.isVerified == true %}
+										Verifier
+									{{ else }}
+										Non verifier
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="row mb-2">
+								<div class="col-md-3 text-muted">Date de creation:</div>
+								<div class="col-md-9">
+									<a href="javascript:void(0)" class="text-body">{{ app.user.dateCreation }}</a>
+								</div>
+							</div>
+
+						</div>
+						<div class="card-footer text-center p-0">
+							<div class="row no-gutters row-bordered row-border-light">
+								<a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
+									<div class="font-weight-bold">24</div>
+									<div class="text-muted small">posts</div>
+								</a>
+								<a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
+									<div class="font-weight-bold">51</div>
+									<div class="text-muted small">videos</div>
+								</a>
+								<a href="javascript:void(0)" class="d-flex col flex-column text-body py-3">
+									<div class="font-weight-bold">215</div>
+									<div class="text-muted small">photos</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- / Info -->
+					<!-- Posts -->
+				</div>
+				<div
+					class="col-xl-4">
+
+					<!-- Side info -->
+					<div class="card mb-4">
+						<div class="card-body">
+							<p class="mb-2">
+								<i class="ion ion-md-desktop ui-w-30 text-center text-lighter"></i>
+								<a href="" class="btn btn-primary">Modifier mes acces</a>
+							</p>
+							<p class="mb-2">
+								<i class="ion ion-ios-navigate ui-w-30 text-center text-lighter"></i>
+								<a href="" class="btn btn-primary">Modifier mot de passe</a>
+							</p>
+							<p class="mb-0">
+								<i class="ion ion-md-globe ui-w-30 text-center text-lighter"></i>
+							</p>
+						</div>
+						<hr class="border-light m-0">
+						<div class="card-body"></div>
+					</div>
+					<!-- / Side info -->
+
+					<!-- Skills -->
+
+				</div>
+			</div>
+
+		</div>
+		<!-- / Content -->
+
+		<!-- Layout footer -->
+		<nav class="layout-footer footer bg-footer-theme">
+			<div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
+				<div class="pt-3">
+					<span class="footer-text font-weight-bolder">Appwork</span>
+					©
+				</div>
+				<div>
+					<a href="javascript:void(0)" class="footer-link pt-3">About Us</a>
+					<a href="javascript:void(0)" class="footer-link pt-3 ml-4">Help</a>
+					<a href="javascript:void(0)" class="footer-link pt-3 ml-4">Contact</a>
+					<a href="javascript:void(0)" class="footer-link pt-3 ml-4">Terms &amp; Conditions</a>
+				</div>
+			</div>
+		</nav>
+		<!-- / Layout footer -->
+
+	</div>
+{% endblock %}

@@ -1,10 +1,16 @@
-{% extends "base.admin.html.twig" %}
-
-{% block title %}Tableau de bord
-{% endblock %}
-{% block body %}
-
-	<div class="content-wrapper pb-0">
+<div class="content-wrapper pb-0">
+		{# <div class="page-header flex-wrap">
+			<div class="header-left">
+				<button class="btn btn-primary mb-2 mb-md-0 mr-2">
+					Create new document
+				</button>
+				<button class="btn btn-outline-primary bg-white mb-2 mb-md-0">
+					Import documents
+				</button>
+			</div>
+		</div> #}
+		<!-- first row starts here -->
+		<!-- chart row starts here -->
 		<div class="row">
 			<div class="col-sm-6 stretch-card grid-margin">
 				<div class="card">
@@ -391,6 +397,3 @@
 			</div>
 		</div>
 	</div>
-{% endblock %}
-
-{% block javascripts %}{% endblock %}

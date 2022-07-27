@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +33,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $nomPrenom;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $dateCreation;
+
+    public function __construct()
+    {
+        $this->dateCreation = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -142,6 +151,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNomPrenom(string $nomPrenom): self
     {
         $this->nomPrenom = $nomPrenom;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }
