@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\User;
 
 use App\Entity\User;
 use App\Form\ModifAccesType;
@@ -12,16 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/parametre', name: 'admin_parametre_')]
+#[Route('/user', name: 'parametre_')]
 class ParametreController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/parametre', name: 'home')]
     public function index(): Response
     {
-        return $this->render('admin/parametre/index.html.twig');
+        return $this->render('user/parametre/index.html.twig');
     }
 
-    #[Route('/modification/acces', name: 'modification_acces')]
+    #[Route('/parametre/modification/acces', name: 'modification_acces')]
     public function modificationAcces(Request $request, EntityManagerInterface $em): Response
     {
         /**
@@ -51,12 +51,12 @@ class ParametreController extends AbstractController
             return $this->redirectToRoute('parametre_home');
         }
 
-        return $this->render('admin/parametre/modificaficationAcces.html.twig', [
+        return $this->render('user/parametre/modificaficationAcces.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-    #[Route('/modification/mot-de-passe', name: 'modification_mot_de_passe')]
+    #[Route('/parametre/modification/mot-de-passe', name: 'modification_mot_de_passe')]
     public function modifPassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
         /**
@@ -85,7 +85,7 @@ class ParametreController extends AbstractController
             return $this->redirectToRoute('parametre_home');
         }
 
-        return $this->render('admin/parametre/modifiacationPassword.html.twig', [
+        return $this->render('user/parametre/modifiacationPassword.html.twig', [
             'form' => $form->createView()
         ]);
     }

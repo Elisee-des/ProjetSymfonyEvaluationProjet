@@ -13,9 +13,7 @@
 		<link rel="stylesheet" href="{{ asset("../assets/vendors/css/vendor.bundle.base.css") }}">
 		<link rel="stylesheet" href="{{ asset("../assets/vendors/jquery-bar-rating/css-stars.css") }}"/>
 		<link rel="stylesheet" href="{{ asset("../assets/vendors/font-awesome/css/font-awesome.min.css") }}"/>
-		<link
-		rel="stylesheet" href="{{ asset("../assets/css/demo_1/style.css") }}"/>
-		<!-- End layout styles -->
+		<link rel="stylesheet" href="{{ asset("../assets/css/demo_1/style.css") }}"/>
 		<link rel="shortcut icon" href="{{ asset("../assets/images/favicon.png") }}"/> {% block stylesheets %}{% endblock %}
 		</head>
 		<body>
@@ -80,7 +78,26 @@
 					</div>
 				</nav>
 				<div class="container-fluid page-body-wrapper">
-					<div class="main-panel"> {% block body %}{% endblock %}
+					<div class="main-panel">
+						<div class="container">
+							<div class="content">
+								<div class='clearfix mb-3'>
+									<div class="row">
+										<div class="col-6">
+											<h2>
+												{% block titre %}{% endblock %}
+											</h2>
+										</div>
+										<div class="col-6">
+											<h2>
+												{% block boutons %}{% endblock %}
+											</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% block body %}{% endblock %}
+						</div>
 						{% include "admin/includes/footer.html.twig" %}
 					</div>
 				</div>
