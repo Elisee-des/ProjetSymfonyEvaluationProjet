@@ -8,8 +8,8 @@
 	Gestion des utilisateurs
 {% endblock %}
 {% block boutons %}
-	<a href="" class="btn btn-outline-primary float-right ml-2">Ajouter</a>
-	<a href="" class="btn btn-outline-warning float-right">Importer</a>
+	<a href="{{ path("admin_utilisateur_creation") }}" class="btn btn-outline-primary float-right ml-2">Ajouter</a>
+	<a href="{{ path("admin_utilisateur_importation") }}" class="btn btn-outline-warning float-right">Importer</a>
 {% endblock %}
 {% block body %}
 	<div class="card">

@@ -26,7 +26,13 @@
 									<a href="{{ path("admin_utilisateur_home") }}" class="btn btn-outline-secondary">Retour</a>
 									<a href="{{ path("admin_utilisateur_edition", {id: user.id}) }}" class="btn btn-outline-primary">Editer</a>
 									<a href="{{ path("admin_utilisateur_role", {id: user.id}) }}" class="btn btn-outline-dark">Role</a>
-									<a href="{{ path("admin_utilisateur_banir", {id: user.id}) }}" class="btn btn-outline-warning" onclick="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?(Celui-ci n'aura plus access a son compte)')">Banir</a>
+									{% for role in user.roles %}
+										{% if role == "ROLE_USER" %}
+											<a href="{{ path("admin_utilisateur_banir", {id: user.id}) }}" class="btn btn-outline-warning">Banir</a>
+										{% else %}
+											<a href="{{ path("admin_utilisateur_reactiver", {id: user.id}) }}" class="btn btn-outline-warning">Reactiver</a>
+										{% endif %}
+									{% endfor %}
 									<a href="{{ path("admin_utilisateur_supprimer", {id: user.id}) }}" class="btn btn-outline-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?(Celui-ci sera definitivement supprimer de votre plateforme)')">supprimer</a>
 								</h3><hr><br>
 							</div>
@@ -40,9 +46,14 @@
 										{{ role }}
 									{% endfor %}
 								</h3><hr><br>
-								<h3>Verifier:
-									{{ user.isVerified() }}</h3><hr><br>
-								<h3>DateCreation:
+								<h3>Compte verifier:
+									{% if user.isVerified() == 1 %}
+										Oui
+									{% else %}
+										Nom
+									{% endif %}
+								</h3><hr><br>
+								<h3>Date de creation:
 									{{user.dateCreation|date("m/d/Y")}}</h3><hr><br>
 							</div>
 						</div>
