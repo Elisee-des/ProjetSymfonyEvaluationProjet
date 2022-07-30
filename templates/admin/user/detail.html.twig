@@ -41,9 +41,9 @@
 									{% endfor %}
 								</h3><hr><br>
 								<h3>Verifier:
-									{{ user.isVerified }}</h3><hr><br>
+									{{ user.isVerified() }}</h3><hr><br>
 								<h3>DateCreation:
-									{{user.dateCreation}}</h3><hr><br>
+									{{user.dateCreation|date("m/d/Y")}}</h3><hr><br>
 							</div>
 						</div>
 					</div>
