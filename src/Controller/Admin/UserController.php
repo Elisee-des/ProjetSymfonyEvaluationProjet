@@ -6,12 +6,14 @@ use App\Entity\User;
 use App\Form\CreationUserType;
 use App\Form\EditionUserType;
 use App\Form\EditRoleType;
+use App\Form\ImportationType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -133,7 +135,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/suppression/{id}', name: 'supprimer')]
-    public function suppression(User $user, EntityManagerInterface $em, Request $request): Response
+    public function suppression(User $user, EntityManagerInterface $em): Response
     {
         $em->remove($user);
         $em->flush();
@@ -174,10 +176,47 @@ class UserController extends AbstractController
     }
 
         #[Route('/importation', name: 'importation')]
-        public function importation(UserRepository $userRepository): Response
+        public function importation(UserRepository $userRepository, Request $request, EntityManagerInterface $em): Response
         {
-            $users = $userRepository->findAll();
+            $form = $this->createForm(ImportationType::class);
+
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) { 
+                $fichier = $request->files->get("importation")["Fichier"];
+                $chemin = $fichier->getPathName();
+                $lecteur = ReaderEntityFactory::CreateXLSReader();
+                $lecteur->open($chemin);
+                $excelTabDonnee = [];
+                foreach ($lecteur->getSheetIterator() as $sheet) {
+                    foreach ($sheet->getRowIterator() as $row) {
+                        $excelTabDonnee[] = $row->toArray();
+                    }
+                }
+
+                for ($i = 0; $i < count($excelTabDonnee); $i++) {
+
+                    $user = new User();
     
-            return $this->render('admin/user/index.html.twig', compact("users"));
+                    $user->setNomPrenom($excelTabDonnee[$i][0])
+                        ->setEmail($excelTabDonnee[$i][1])
+                        ->setPassword($excelTabDonnee[$i][2])
+                    ;
+
+                    $em->persist($user);
+                }
+
+                $em->flush();
+
+                $this->addFlash(
+                   'success',
+                   'Vous avez importer avec success un fichier excel'
+                );
+
+                return $this->redirectToRoute('admin_utilisateur_home');
+            }
+            return $this->render('admin/import/index.html.twig', [
+                "form" => $form->createView(),
+            ]);
         }
 }

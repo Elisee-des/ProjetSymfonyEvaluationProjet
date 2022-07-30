@@ -49,7 +49,7 @@ class CreationUserType extends AbstractType
                 'second_options' => [
                     'label' => "Repeter mot de passe"
                 ],
-                'invalid_message'=>'Veuillezz saisir un mot de passe valide'
+                'invalid_message'=>'Veuillez saisir un mot identique'
             ])
             ->add('isVerified', ChoiceType::class, [
                 "label"=>"Etat du compte",
