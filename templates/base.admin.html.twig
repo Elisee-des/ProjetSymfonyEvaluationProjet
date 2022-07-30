@@ -67,7 +67,7 @@
 								<button class="btn btn-sm btn-danger">Parametre</button>
 							</li>
 							<li class="nav-item nav-logout d-none d-lg-block">
-								<a class="nav-link" href="index.html">Deconnexion
+								<a class="nav-link" href="{{ path("app_logout") }}">Deconnexion
 									<i class="mdi mdi-key-variant"></i>
 								</a>
 							</li>
@@ -116,6 +116,12 @@
 			<script src="{{ asset("../assets/js/settings.js") }}"></script>
 			<script src="{{ asset("../assets/js/todolist.js") }}"></script>
 			<script src="{{ asset("../assets/js/dashboard.js") }}"></script>
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+			{% for message in app.flashes("success") %}
+			Swal.fire({"icon": "success", "title": "Success", "text":"{{ message }}", "timer": 3000})
+			{% endfor %}
+			</script>
 			{% block javascripts %}{% endblock %}
 		</body>
 	</html>

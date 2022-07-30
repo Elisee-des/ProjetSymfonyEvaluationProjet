@@ -1,0 +1,54 @@
+{% extends "base.admin.html.twig" %}
+
+{% block title %}
+	Detail de
+	{{ user.nomPrenom }}
+{% endblock %}
+
+{% block titre %}
+	Detail de l'utilisateur
+	{{ user.nomPrenom }}
+{% endblock %}
+{% block boutons %}{% endblock %}
+{% block body %}
+	<div class="card">
+		<div class="card-body">
+			<div class="content">
+				<div class="row">
+					<div class="col-6">
+						<div class="card">
+							<div class="container"><br>
+								<h3>Nom Prenom:
+									{{user.nomPrenom}}</h3><hr><br>
+								<h3>Email:
+									{{user.email}}</h3><hr><br>
+								<h3>
+									<a href="{{ path("admin_utilisateur_home") }}" class="btn btn-outline-secondary">Retour</a>
+									<a href="{{ path("admin_utilisateur_edition", {id: user.id}) }}" class="btn btn-outline-primary">Editer</a>
+									<a href="{{ path("admin_utilisateur_role", {id: user.id}) }}" class="btn btn-outline-dark">Role</a>
+									<a href="{{ path("admin_utilisateur_banir", {id: user.id}) }}" class="btn btn-outline-warning" onclick="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?(Celui-ci n'aura plus access a son compte)')">Banir</a>
+									<a href="{{ path("admin_utilisateur_supprimer", {id: user.id}) }}" class="btn btn-outline-danger" onclick="return confirm('Etes vous sur de vouloir supprimer cette utilisateur ?(Celui-ci sera definitivement supprimer de votre plateforme)')">supprimer</a>
+								</h3><hr><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="card">
+							<div class="container"><br>
+								<h3>Roles:
+									{% for role in user.roles %}
+										{{ role }}
+									{% endfor %}
+								</h3><hr><br>
+								<h3>Verifier:
+									{{ user.isVerified }}</h3><hr><br>
+								<h3>DateCreation:
+									{{user.dateCreation}}</h3><hr><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
