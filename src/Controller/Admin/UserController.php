@@ -185,7 +185,7 @@ class UserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) { 
                 $fichier = $request->files->get("importation")["Fichier"];
                 $chemin = $fichier->getPathName();
-                $lecteur = ReaderEntityFactory::CreateXLSReader();
+                $lecteur = ReaderEntityFactory::createXLSXReader();
                 $lecteur->open($chemin);
                 $excelTabDonnee = [];
                 foreach ($lecteur->getSheetIterator() as $sheet) {
