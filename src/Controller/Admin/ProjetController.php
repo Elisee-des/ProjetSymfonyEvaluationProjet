@@ -25,6 +25,15 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/detail/{id}', name: 'detail')]
+    public function deatil(Projet $projet): Response
+    {
+
+        return $this->render('admin/projet/detail.html.twig', [
+            'projet'=>$projet
+        ]);
+    }
+
     #[Route('/creation', name: 'creation')]
     public function creation(Request $request, EntityManagerInterface $em): Response
     {
@@ -53,7 +62,7 @@ class ProjetController extends AbstractController
 
             $this->addFlash(
                'success',
-               'Vous avez Parametre avec succes le projt'.$projet->getNom().'Veuillez allez dans Finaliser un projet pour terminer la configuration du projet'
+               'Vous avez parametré avec succes le projet '.$projet->getNom().' Veuillez allez dans Finaliser un projet pour terminer la configuration du projet'
             );
 
             return $this->redirectToRoute('admin_projet_home');

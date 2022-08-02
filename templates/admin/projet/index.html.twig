@@ -1,7 +1,7 @@
 {% extends "base.admin.html.twig" %}
-{% block title %}Gestion des projets{% endblock %}
-{% block stylesheets %}
+{% block title %}Gestion des projets
 {% endblock %}
+{% block stylesheets %}{% endblock %}
 
 {% block titre %}
 	Gestion des projets
@@ -13,5 +13,37 @@
 {% endblock %}
 
 {% block body %}
-	Projet
+	<h2>Liste des Prjets</h2>
+	<div class="card">
+		<div class="card-hearder"><br>
+		</div>
+		<div class="card-body">
+			<div class="content">
+				<table class="table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Date de creation</th>
+							<th>Etat</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for projet in projets %}
+							<tr>
+								<th>{{projet.nom}}</th>
+								<th>{{projet.dateCreation|date("m/d/Y")}}</th>
+								<th>
+									<a href="{{ path("admin_utilisateur_detail", {id: projet.id}) }}" class="btn btn-outline-primary">Envoyez</a>
+								</th>
+								<th>
+									<a href="{{ path("admin_projet_detail", {id: projet.id}) }}" class="btn btn-outline-secondary">Detail</a>
+								</th>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}
