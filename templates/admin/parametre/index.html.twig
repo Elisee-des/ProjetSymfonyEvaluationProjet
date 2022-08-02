@@ -32,7 +32,7 @@
 								<div class="col-md-9">
 									{{ app.user.nomPrenom }}
 								</div>
-							</div>
+							</div>  
 
 							<div class="row mb-2">
 								<div class="col-md-3 text-muted">Email:</div>
@@ -46,7 +46,7 @@
 								<div class="col-md-9">
 									{% if app.user.isVerified == true %}
 										Verifier
-									{{ else }}
+									{% else %}
 										Non verifier
 									{% endif %}
 								</div>
@@ -55,7 +55,7 @@
 							<div class="row mb-2">
 								<div class="col-md-3 text-muted">Date de creation:</div>
 								<div class="col-md-9">
-									<a href="javascript:void(0)" class="text-body">{{ app.user.dateCreation }}</a>
+									<a href="javascript:void(0)" class="text-body">{{ app.user.dateCreation|date("$m/d/Y") }}</a>
 								</div>
 							</div>
 

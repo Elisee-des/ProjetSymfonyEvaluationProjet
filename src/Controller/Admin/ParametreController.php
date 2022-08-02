@@ -32,7 +32,7 @@ class ParametreController extends AbstractController
 
         $form = $this->createForm(ModifAccesType::class, $user);
 
-        $formaulaire = $form->handleRequest($request);
+        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             
