@@ -1,0 +1,17 @@
+{% extends "base.admin.html.twig" %}
+
+{% block title %}
+	Creation d'un projet
+{% endblock %}
+
+{% block titre %}
+	Creation d'un projet
+{% endblock %}
+{% block body %}
+	<div class="card"><br>
+		<div class="container">
+			{{ form(projetForm) }}
+			<a href="{{path("admin_projet_home")}}" class="btn btn-outline-primary">Retour</a>
+		</div>
+	</div>
+{% endblock %}

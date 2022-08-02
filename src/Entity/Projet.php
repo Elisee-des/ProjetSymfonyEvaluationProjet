@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjetRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,10 +34,20 @@ class Projet
     #[ORM\OneToMany(mappedBy: 'projets', targetEntity: Critere::class)]
     private $criteres;
 
+    #[ORM\Column(type: 'integer')]
+    private $nombreInput;
+
+    #[ORM\Column(type: 'integer')]
+    private $nombreRadio;
+
+    #[ORM\Column(type: 'integer')]
+    private $nombreCheckbox;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->criteres = new ArrayCollection();
+        $this->dateCreation = new DateTime();
     }
 
     public function getId(): ?int
@@ -145,6 +156,42 @@ class Projet
                 $critere->setProjets(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNombreInput(): ?int
+    {
+        return $this->nombreInput;
+    }
+
+    public function setNombreInput(int $nombreInput): self
+    {
+        $this->nombreInput = $nombreInput;
+
+        return $this;
+    }
+
+    public function getNombreRadio(): ?int
+    {
+        return $this->nombreRadio;
+    }
+
+    public function setNombreRadio(int $nombreRadio): self
+    {
+        $this->nombreRadio = $nombreRadio;
+
+        return $this;
+    }
+
+    public function getnombreCheckbox(): ?int
+    {
+        return $this->nombreCheckbox;
+    }
+
+    public function setnombreCheckbox(int $nombreCheckbox): self
+    {
+        $this->nombreCheckbox = $nombreCheckbox;
 
         return $this;
     }

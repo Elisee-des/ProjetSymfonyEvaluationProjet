@@ -48,6 +48,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->projet = new ArrayCollection();
     }
 
+    // public function __toString()
+    // {
+    //     return $this->nomPrenom;
+    // }
+
     public function getId(): ?int
     {
         return $this->id;

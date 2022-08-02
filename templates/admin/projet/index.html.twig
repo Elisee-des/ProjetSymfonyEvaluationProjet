@@ -1,6 +1,15 @@
 {% extends "base.admin.html.twig" %}
-{% block title %}projet{% endblock %}
+{% block title %}Gestion des projets{% endblock %}
 {% block stylesheets %}
+{% endblock %}
+
+{% block titre %}
+	Gestion des projets
+{% endblock %}
+
+{% block boutons %}
+	<a href="{{ path("admin_projet_creation") }}" class="btn btn-outline-primary float-right ml-2">Finaliser un projet</a>
+	<a href="{{ path("admin_projet_creation") }}" class="btn btn-outline-primary float-right ml-2">Parametré un projet</a>
 {% endblock %}
 
 {% block body %}
