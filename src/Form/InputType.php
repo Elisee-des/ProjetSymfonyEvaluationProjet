@@ -12,9 +12,8 @@ class InputType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('label')
+            ->add('label', )
             ->add('input')
-            ->add('critere')
         ;
     }
 

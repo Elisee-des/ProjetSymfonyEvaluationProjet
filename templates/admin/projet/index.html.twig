@@ -8,12 +8,11 @@
 {% endblock %}
 
 {% block boutons %}
-	<a href="{{ path("admin_projet_creation") }}" class="btn btn-outline-primary float-right ml-2">Finaliser un projet</a>
 	<a href="{{ path("admin_projet_creation") }}" class="btn btn-outline-primary float-right ml-2">Parametré un projet</a>
 {% endblock %}
 
 {% block body %}
-	<h2>Liste des Prjets</h2>
+	<h3>Liste des Projets</h3>
 	<div class="card">
 		<div class="card-hearder"><br>
 		</div>
@@ -35,9 +34,10 @@
 								<th>{{projet.dateCreation|date("m/d/Y")}}</th>
 								<th>
 									<a href="{{ path("admin_utilisateur_detail", {id: projet.id}) }}" class="btn btn-outline-primary">Envoyez</a>
+									<a href="{{ path("admin_projet_finalisation", {id: projet.id}) }}" class="btn btn-outline-secondary">Finaliser le parametrage</a>
 								</th>
 								<th>
-									<a href="{{ path("admin_projet_detail", {id: projet.id}) }}" class="btn btn-outline-secondary">Detail</a>
+									<a href="{{ path("admin_projet_detail", {id: projet.id}) }}" class="btn btn-outline-warning">Detail</a>
 								</th>
 							</tr>
 						{% endfor %}
@@ -46,4 +46,7 @@
 			</div>
 		</div>
 	</div>
+
+	<br><br>
+
 {% endblock %}

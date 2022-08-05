@@ -22,11 +22,12 @@
 									{{projet.nom}}</h3><hr><br>
 								<h3>Date de creation:
 									{{projet.dateCreation|date("m/d/Y")}}</h3><hr><br>
-								<h3>Nombre d'evaluateur: {{ projet.users|length }}
+								<h3>Nombre d'evaluateur:
+									{{ projet.users|length }}
 								</h3><hr><br>
 								<h3>Description</h3>
 								<p>{{projet.description}}</p><br>
-								
+
 							</div>
 						</div>
 					</div>
@@ -40,7 +41,8 @@
 								</h4><hr>
 								<h4>Evaluateurs restants:
 								</h4><hr><br>
-								<h3>Critere d'evaluation:  {{ projet.criteres|length }}</h3><hr>
+								<h3>Critere d'evaluation:
+									{{ projet.criteres|length }}</h3><hr>
 								<h4>Total de critere</h4>
 								<h4>Total des champs</h4>
 								<h4>Total des boutons radios</h4>
@@ -52,5 +54,15 @@
 			</div>
 		</div>
 	</div>
-	<hr><br>
-{% endblock %}
+	<br>
+	<div class="card">
+		<div class="card-hearder"><br>
+		<h2 class="text-center">Statistique</h2>
+		</div>
+		<div class="card-body">
+			<div class="content">
+				Ici mon graphe
+			</table>
+		</div>
+	</div>
+</div>{% endblock %}

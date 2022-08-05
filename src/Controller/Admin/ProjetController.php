@@ -2,12 +2,23 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Checkbox;
+use App\Entity\Input;
 use App\Entity\Projet;
+use App\Entity\Radio;
+use App\Form\CheckboxType as FormCheckboxType;
 use App\Form\CreationProjetType;
+use App\Form\FinalisationType;
+use App\Form\InputType;
+use App\Form\RadioType;
+use App\Repository\CheckboxRepository;
+use App\Repository\InputRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\RadioRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +32,7 @@ class ProjetController extends AbstractController
         $projets = $projetRepository->findAll();
 
         return $this->render('admin/projet/index.html.twig', [
-            'projets'=>$projets
+            'projets' => $projets
         ]);
     }
 
@@ -30,7 +41,7 @@ class ProjetController extends AbstractController
     {
 
         return $this->render('admin/projet/detail.html.twig', [
-            'projet'=>$projet
+            'projet' => $projet
         ]);
     }
 
@@ -39,16 +50,11 @@ class ProjetController extends AbstractController
     {
         $projet = new Projet();
         $form = $this->createForm(CreationProjetType::class, $projet);
-        // $input = new Input();
-        // $form1 = $this->createForm(Input::class, $input);
-        // $radio = new Radio();
-        // $form2 = $this->createForm(RadioType::class, $input);
-        // $checkbox = new Checkbox();
-        // $form3 = $this->createForm(CheckboxType::class, $input);
+
 
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $inputs = $request->get("creation_projet")["input"];
             $radios = $request->get("creation_projet")["radio"];
             $checkboxs = $request->get("creation_projet")["chexkbox"];
@@ -61,37 +67,31 @@ class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash(
-               'success',
-               'Vous avez parametré avec succes le projet '.$projet->getNom().' Veuillez allez dans Finaliser un projet pour terminer la configuration du projet'
+                'success',
+                'Vous avez parametré avec succes le projet ' . $projet->getNom() . ' Veuillez allez dans Finaliser un projet pour terminer la configuration du projet'
             );
 
             return $this->redirectToRoute('admin_projet_home');
-            // $compteur1 = 0;
-            // $compteur2 = 0;
-            // $compteur3 = 0;
-            // for ($i=0; $i < $inputs; $i++) { 
-
-            //     $compteur1 = $compteur1 +1;
-            // }
-
-            // for ($i=0; $i < $radios; $i++) { 
-
-            //     $compteur2 = $compteur2 +1;
-            // }
-
-            // for ($i=0; $i < $checkboxs; $i++) { 
-
-            //     $compteur3 = $compteur3 +1;
-            // }
-            // dd($compteur1, $compteur2, $compteur3);
-
         }
 
         return $this->render('admin/projet/creation.html.twig', [
-            "projetForm"=>$form->createView(),
-            // "inputForm"=>$form1->createView(),
-            // "radioForm"=>$form2->createView(),
-            // "checkboxForm"=>$form3->createView(),
+            "projetForm" => $form->createView(),
+
+        ]);
+    }
+
+    #[Route('/finalisation/{id}', name: 'finalisation')]
+    public function finalisation(Projet $projet, InputRepository $inputRepository,
+     RadioRepository $radioRepository, CheckboxRepository $checkboxRepository): Response
+    {
+        $inputs = $inputRepository->findAll();
+        $radios = $radioRepository->findAll();
+        $checkboxs = $checkboxRepository->findAll();
+
+        return $this->render('admin/projet/finalisation.html.twig', [
+            "inputs"=>$inputs,
+            "radios"=>$radios,
+            "checkboxs"=>$checkboxs
         ]);
     }
 }
