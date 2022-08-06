@@ -132,4 +132,14 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/finalisation/{id}/input/detail', name: 'finalisation_input_detail')]
+    public function inputDetail(Input $input): Response
+    {
+        
+
+        return $this->render('admin/projet/criteres/input/detail.html.twig', [
+            "input"=>$input
+        ]);
+    }
+
 }

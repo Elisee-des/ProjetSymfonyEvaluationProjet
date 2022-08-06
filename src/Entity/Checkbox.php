@@ -23,6 +23,9 @@ class Checkbox
     #[ORM\JoinColumn(nullable: false)]
     private $projet;
 
+    #[ORM\ManyToOne(targetEntity: Reponse::class, inversedBy: 'checkboxs')]
+    private $reponse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Checkbox
     public function setProjet(?Projet $projet): self
     {
         $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getReponse(): ?Reponse
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?Reponse $reponse): self
+    {
+        $this->reponse = $reponse;
 
         return $this;
     }

@@ -20,6 +20,9 @@ class Input
     #[ORM\JoinColumn(nullable: false)]
     private $projet;
 
+    #[ORM\ManyToOne(targetEntity: Reponse::class, inversedBy: 'inputs')]
+    private $reponse;
+
 
     public function getId(): ?int
     {
@@ -46,6 +49,18 @@ class Input
     public function setProjet(?Projet $projet): self
     {
         $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getReponse(): ?Reponse
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?Reponse $reponse): self
+    {
+        $this->reponse = $reponse;
 
         return $this;
     }
