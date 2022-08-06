@@ -43,11 +43,23 @@ class Projet
     #[ORM\Column(type: 'integer')]
     private $nombreCheckbox;
 
+    #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Input::class, orphanRemoval: true)]
+    private $inputs;
+
+    #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Radio::class, orphanRemoval: true)]
+    private $radios;
+
+    #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Checkbox::class, orphanRemoval: true)]
+    private $checkboxs;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->criteres = new ArrayCollection();
         $this->dateCreation = new DateTime();
+        $this->inputs = new ArrayCollection();
+        $this->radios = new ArrayCollection();
+        $this->checkboxs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +204,96 @@ class Projet
     public function setnombreCheckbox(int $nombreCheckbox): self
     {
         $this->nombreCheckbox = $nombreCheckbox;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Input>
+     */
+    public function getInputs(): Collection
+    {
+        return $this->inputs;
+    }
+
+    public function addInput(Input $input): self
+    {
+        if (!$this->inputs->contains($input)) {
+            $this->inputs[] = $input;
+            $input->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInput(Input $input): self
+    {
+        if ($this->inputs->removeElement($input)) {
+            // set the owning side to null (unless already changed)
+            if ($input->getProjet() === $this) {
+                $input->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Radio>
+     */
+    public function getRadios(): Collection
+    {
+        return $this->radios;
+    }
+
+    public function addRadio(Radio $radio): self
+    {
+        if (!$this->radios->contains($radio)) {
+            $this->radios[] = $radio;
+            $radio->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRadio(Radio $radio): self
+    {
+        if ($this->radios->removeElement($radio)) {
+            // set the owning side to null (unless already changed)
+            if ($radio->getProjet() === $this) {
+                $radio->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Checkbox>
+     */
+    public function getCheckboxs(): Collection
+    {
+        return $this->checkboxs;
+    }
+
+    public function addCheckbox(Checkbox $checkbox): self
+    {
+        if (!$this->checkboxs->contains($checkbox)) {
+            $this->checkboxs[] = $checkbox;
+            $checkbox->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheckbox(Checkbox $checkbox): self
+    {
+        if ($this->checkboxs->removeElement($checkbox)) {
+            // set the owning side to null (unless already changed)
+            if ($checkbox->getProjet() === $this) {
+                $checkbox->setProjet(null);
+            }
+        }
 
         return $this;
     }

@@ -17,6 +17,8 @@ use App\Repository\ProjetRepository;
 use App\Repository\RadioRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,9 +82,10 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    
     #[Route('/finalisation/{id}', name: 'finalisation')]
     public function finalisation(Projet $projet, InputRepository $inputRepository,
-     RadioRepository $radioRepository, CheckboxRepository $checkboxRepository): Response
+    RadioRepository $radioRepository, CheckboxRepository $checkboxRepository): Response
     {
         $inputs = $inputRepository->findAll();
         $radios = $radioRepository->findAll();
@@ -91,7 +94,42 @@ class ProjetController extends AbstractController
         return $this->render('admin/projet/finalisation.html.twig', [
             "inputs"=>$inputs,
             "radios"=>$radios,
-            "checkboxs"=>$checkboxs
+            "checkboxs"=>$checkboxs,
+            "projet"=>$projet
         ]);
     }
+
+    #[Route('/finalisation/{id}/input', name: 'finalisation_input')]
+    public function input(Projet $projet, InputRepository $inputRepository,Request $request,
+     RadioRepository $radioRepository, CheckboxRepository $checkboxRepository, ManagerRegistry $managerRegistry): Response
+    {
+        $input = new Input();
+        $id = $projet->getId();
+        $form = $this->createForm(InputType::class, $input);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $label = $request->get("input")["label"];
+            $input->setProjet($projet);
+            $input->setLabel($label);
+            
+            $em=$managerRegistry->getManager();
+            
+            $em->persist($input);
+            $em->flush();
+
+            $this->addFlash(
+               'success',
+               'Vous avez creé avec succes un nouveau champ de saisis'
+            );
+            return $this->redirectToRoute('admin_projet_finalisation', ["id"=>$id]);
+        }
+
+        return $this->render('admin/projet/titres/input.html.twig', [
+            "projet"=>$projet,
+            "inputForm"=>$form->createView()
+        ]);
+    }
+
 }

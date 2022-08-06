@@ -19,9 +19,9 @@ class Radio
     #[ORM\Column(type: 'string', length: 255)]
     private $radio;
 
-    #[ORM\ManyToOne(targetEntity: Critere::class, inversedBy: 'radio')]
+    #[ORM\ManyToOne(targetEntity: Projet::class, inversedBy: 'radios')]
     #[ORM\JoinColumn(nullable: false)]
-    private $critere;
+    private $projet;
 
     public function getId(): ?int
     {
@@ -52,15 +52,16 @@ class Radio
         return $this;
     }
 
-    public function getCritere(): ?Critere
+    public function getProjet(): ?Projet
     {
-        return $this->critere;
+        return $this->projet;
     }
 
-    public function setCritere(?Critere $critere): self
+    public function setProjet(?Projet $projet): self
     {
-        $this->critere = $critere;
+        $this->projet = $projet;
 
         return $this;
     }
+
 }

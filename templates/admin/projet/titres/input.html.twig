@@ -1,0 +1,17 @@
+{% extends "base.admin.html.twig" %}
+
+{% block title %}
+	Creation d'un champs de saisis
+{% endblock %}
+
+{% block titre %}
+	Creation d'un champs de saisis
+{% endblock %}
+{% block body %}
+	<div class="card"><br>
+		<div class="container">
+			{{ form(inputForm) }}
+			<a href="{{path("admin_projet_finalisation", {id: projet.id})}}" class="btn btn-outline-primary">Retour</a>
+		</div>
+	</div><br>
+{% endblock %}

@@ -16,12 +16,10 @@ class Input
     #[ORM\Column(type: 'string', length: 255)]
     private $label;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $input;
-
-    #[ORM\ManyToOne(targetEntity: Critere::class, inversedBy: 'input')]
+    #[ORM\ManyToOne(targetEntity: Projet::class, inversedBy: 'inputs')]
     #[ORM\JoinColumn(nullable: false)]
-    private $critere;
+    private $projet;
+
 
     public function getId(): ?int
     {
@@ -40,27 +38,16 @@ class Input
         return $this;
     }
 
-    public function getInput(): ?string
+    public function getProjet(): ?Projet
     {
-        return $this->input;
+        return $this->projet;
     }
 
-    public function setInput(string $input): self
+    public function setProjet(?Projet $projet): self
     {
-        $this->input = $input;
+        $this->projet = $projet;
 
         return $this;
     }
 
-    public function getCritere(): ?Critere
-    {
-        return $this->critere;
-    }
-
-    public function setCritere(?Critere $critere): self
-    {
-        $this->critere = $critere;
-
-        return $this;
-    }
 }
