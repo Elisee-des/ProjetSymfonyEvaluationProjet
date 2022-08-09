@@ -20,9 +20,8 @@ class Input
     #[ORM\JoinColumn(nullable: false)]
     private $projet;
 
-    #[ORM\ManyToOne(targetEntity: Reponse::class, inversedBy: 'inputs')]
-    private $reponse;
-
+    #[ORM\OneToOne(mappedBy: 'input', targetEntity: InputReponse::class, cascade: ['persist', 'remove'])]
+    private $inputReponse;
 
     public function getId(): ?int
     {
@@ -53,14 +52,24 @@ class Input
         return $this;
     }
 
-    public function getReponse(): ?Reponse
+    public function getInputReponse(): ?InputReponse
     {
-        return $this->reponse;
+        return $this->inputReponse;
     }
 
-    public function setReponse(?Reponse $reponse): self
+    public function setInputReponse(?InputReponse $inputReponse): self
     {
-        $this->reponse = $reponse;
+        // unset the owning side of the relation if necessary
+        if ($inputReponse === null && $this->inputReponse !== null) {
+            $this->inputReponse->setInput(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($inputReponse !== null && $inputReponse->getInput() !== $this) {
+            $inputReponse->setInput($this);
+        }
+
+        $this->inputReponse = $inputReponse;
 
         return $this;
     }

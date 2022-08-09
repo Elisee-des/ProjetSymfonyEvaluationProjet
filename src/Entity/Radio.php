@@ -23,8 +23,8 @@ class Radio
     #[ORM\JoinColumn(nullable: false)]
     private $projet;
 
-    #[ORM\ManyToOne(targetEntity: Reponse::class, inversedBy: 'radios')]
-    private $reponse;
+    #[ORM\OneToOne(mappedBy: 'radio', targetEntity: RadioReponse::class, cascade: ['persist', 'remove'])]
+    private $radioReponse;
 
     public function getId(): ?int
     {
@@ -67,14 +67,24 @@ class Radio
         return $this;
     }
 
-    public function getReponse(): ?Reponse
+    public function getRadioReponse(): ?RadioReponse
     {
-        return $this->reponse;
+        return $this->radioReponse;
     }
 
-    public function setReponse(?Reponse $reponse): self
+    public function setRadioReponse(?RadioReponse $radioReponse): self
     {
-        $this->reponse = $reponse;
+        // unset the owning side of the relation if necessary
+        if ($radioReponse === null && $this->radioReponse !== null) {
+            $this->radioReponse->setRadio(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($radioReponse !== null && $radioReponse->getRadio() !== $this) {
+            $radioReponse->setRadio($this);
+        }
+
+        $this->radioReponse = $radioReponse;
 
         return $this;
     }

@@ -2,32 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Projet;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Reponse;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreationProjetType extends AbstractType
+class InputReponseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('description')
-            ->add('nombreEvaluateur')
-            ->add('Creer', SubmitType::class)
+            ->add('inputReponse', TextType::class, [
+                "label"=>"Votre reponse",
+                "attr"=>[
+                    "placeholder"=>"Saissisez ici votre reponse"
+                ]
+            ])
+            ->add('Soumettre', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Projet::class,
+            'data_class' => Reponse::class,
         ]);
     }
 }

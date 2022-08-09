@@ -31,18 +31,6 @@ class Projet
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projet', orphanRemoval: true)]
     private $users;
 
-    #[ORM\OneToMany(mappedBy: 'projets', targetEntity: Critere::class)]
-    private $criteres;
-
-    #[ORM\Column(type: 'integer')]
-    private $nombreInput;
-
-    #[ORM\Column(type: 'integer')]
-    private $nombreRadio;
-
-    #[ORM\Column(type: 'integer')]
-    private $nombreCheckbox;
-
     #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Input::class, orphanRemoval: true)]
     private $inputs;
 
@@ -138,72 +126,6 @@ class Projet
         if ($this->users->removeElement($user)) {
             $user->removeProjet($this);
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Critere>
-     */
-    public function getCriteres(): Collection
-    {
-        return $this->criteres;
-    }
-
-    public function addCritere(Critere $critere): self
-    {
-        if (!$this->criteres->contains($critere)) {
-            $this->criteres[] = $critere;
-            $critere->setProjets($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCritere(Critere $critere): self
-    {
-        if ($this->criteres->removeElement($critere)) {
-            // set the owning side to null (unless already changed)
-            if ($critere->getProjets() === $this) {
-                $critere->setProjets(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getNombreInput(): ?int
-    {
-        return $this->nombreInput;
-    }
-
-    public function setNombreInput(int $nombreInput): self
-    {
-        $this->nombreInput = $nombreInput;
-
-        return $this;
-    }
-
-    public function getNombreRadio(): ?int
-    {
-        return $this->nombreRadio;
-    }
-
-    public function setNombreRadio(int $nombreRadio): self
-    {
-        $this->nombreRadio = $nombreRadio;
-
-        return $this;
-    }
-
-    public function getnombreCheckbox(): ?int
-    {
-        return $this->nombreCheckbox;
-    }
-
-    public function setnombreCheckbox(int $nombreCheckbox): self
-    {
-        $this->nombreCheckbox = $nombreCheckbox;
 
         return $this;
     }

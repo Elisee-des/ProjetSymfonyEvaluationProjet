@@ -6,9 +6,12 @@ use App\Entity\Checkbox;
 use App\Entity\Input;
 use App\Entity\Projet;
 use App\Entity\Radio;
+use App\Entity\Reponse;
 use App\Form\CheckboxType as FormCheckboxType;
 use App\Form\CreationProjetType;
 use App\Form\FinalisationType;
+use App\Form\InputReponseType;
+use App\Form\InputSubmitType;
 use App\Form\InputType;
 use App\Form\RadioType;
 use App\Repository\CheckboxRepository;
@@ -57,15 +60,13 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $inputs = $request->get("creation_projet")["input"];
-            $radios = $request->get("creation_projet")["radio"];
-            $checkboxs = $request->get("creation_projet")["chexkbox"];
-
-            $projet->setNombreInput($inputs);
-            $projet->setNombreRadio($radios);
-            $projet->setnombreCheckbox($checkboxs);
-
+            $reponse = new Reponse();
+            $nomProjet = $request->get('creation_projet')['nom'];
+            $reponse->setTitre($nomProjet);
+            
+            // dd($reponse);
             $em->persist($projet);
+            $em->persist($reponse);
             $em->flush();
 
             $this->addFlash(
@@ -100,8 +101,8 @@ class ProjetController extends AbstractController
     }
 
     #[Route('/finalisation/{id}/input', name: 'finalisation_input')]
-    public function input(Projet $projet, InputRepository $inputRepository,Request $request,
-     RadioRepository $radioRepository, CheckboxRepository $checkboxRepository, ManagerRegistry $managerRegistry): Response
+    public function input(Projet $projet, Request $request,
+     ManagerRegistry $managerRegistry): Response
     {
         $input = new Input();
         $id = $projet->getId();
@@ -110,9 +111,7 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            $label = $request->get("input")["label"];
             $input->setProjet($projet);
-            $input->setLabel($label);
             
             $em=$managerRegistry->getManager();
             
@@ -133,12 +132,29 @@ class ProjetController extends AbstractController
     }
 
     #[Route('/finalisation/{id}/input/detail', name: 'finalisation_input_detail')]
-    public function inputDetail(Input $input): Response
+    public function inputDetail(Request $request, Projet $projet, Input $input, EntityManagerInterface $em): Response
     {
+        $inputReponse = new Reponse();
+        $idProjet = $projet->getId();
+        $form = $this->createForm(InputReponseType::class, $inputReponse);
+        $form->handleRequest($request);
         
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $em->persist($inputReponse);
+            $em->flush();
+
+            $this->addFlash(
+               'success',
+               'Vous avez soumis avec success votre reponse'
+            );
+
+            return $this->redirectToRoute('admin_projet_finalisation', ["id"=>$idProjet]);
+        }
 
         return $this->render('admin/projet/criteres/input/detail.html.twig', [
-            "input"=>$input
+            "projet"=>$projet,
+            "input"=>$input,
+            "inputSubmitForm"=>$form->createView(),
         ]);
     }
 

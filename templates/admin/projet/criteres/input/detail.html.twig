@@ -1,23 +1,21 @@
 {% extends "base.admin.html.twig" %}
 
 {% block title %}
-	Creation d'un champs de saisis
+	Soummission de la reponse
 {% endblock %}
 
 {% block titre %}
-	Creation d'un champs de saisis
+	Soummission de la reponse
 {% endblock %}
 {% block body %}
-
 	<div class="card"><br>
 		<div class="container">
 			<form action="" method="POST">
 				<label for="label">{{ input.label }}</label>
-				<div>
-					<input type="text" class="form-control" placeholder="Votre reponse ici">
-				</div>
-			</form><br>
-			<a href="{{path("admin_projet_finalisation", {id: input.projet.id})}}" class="btn btn-outline-primary">Retour</a>
+				{{ form(inputSubmitForm) }}
+				
+			</form>
+			<a href="{{path("admin_projet_finalisation", {id: projet.id})}}" class="btn btn-outline-primary">Retour</a>
 		</div>
-	</div><br>
+	</div>
 {% endblock %}

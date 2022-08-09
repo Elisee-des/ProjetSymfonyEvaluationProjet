@@ -15,16 +15,16 @@ class Reponse
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'text')]
-    private $input;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $titre;
 
-    #[ORM\OneToMany(mappedBy: 'reponse', targetEntity: Input::class)]
+    #[ORM\OneToMany(mappedBy: 'reponses', targetEntity: InputReponse::class, orphanRemoval: true)]
     private $inputs;
 
-    #[ORM\OneToMany(mappedBy: 'reponse', targetEntity: Radio::class)]
+    #[ORM\OneToMany(mappedBy: 'reponses', targetEntity: RadioReponse::class, orphanRemoval: true)]
     private $radios;
 
-    #[ORM\OneToMany(mappedBy: 'reponse', targetEntity: Checkbox::class)]
+    #[ORM\OneToMany(mappedBy: 'reponses', targetEntity: CheckboxReponse::class, orphanRemoval: true)]
     private $checkboxs;
 
     public function __construct()
@@ -39,42 +39,51 @@ class Reponse
         return $this->id;
     }
 
-    public function getInput(): ?string
+
+    /**
+     * Get the value of titre
+     */ 
+    public function getTitre()
     {
-        return $this->input;
+        return $this->titre;
     }
 
-    public function setInput(string $input): self
+    /**
+     * Set the value of titre
+     *
+     * @return  self
+     */ 
+    public function setTitre($titre)
     {
-        $this->input = $input;
+        $this->titre = $titre;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Input>
+     * @return Collection<int, InputReponse>
      */
     public function getInputs(): Collection
     {
         return $this->inputs;
     }
 
-    public function addInput(Input $input): self
+    public function addInput(InputReponse $input): self
     {
         if (!$this->inputs->contains($input)) {
             $this->inputs[] = $input;
-            $input->setReponse($this);
+            $input->setReponses($this);
         }
 
         return $this;
     }
 
-    public function removeInput(Input $input): self
+    public function removeInput(InputReponse $input): self
     {
         if ($this->inputs->removeElement($input)) {
             // set the owning side to null (unless already changed)
-            if ($input->getReponse() === $this) {
-                $input->setReponse(null);
+            if ($input->getReponses() === $this) {
+                $input->setReponses(null);
             }
         }
 
@@ -82,29 +91,29 @@ class Reponse
     }
 
     /**
-     * @return Collection<int, Radio>
+     * @return Collection<int, RadioReponse>
      */
     public function getRadios(): Collection
     {
         return $this->radios;
     }
 
-    public function addRadio(Radio $radio): self
+    public function addRadio(RadioReponse $radio): self
     {
         if (!$this->radios->contains($radio)) {
             $this->radios[] = $radio;
-            $radio->setReponse($this);
+            $radio->setReponses($this);
         }
 
         return $this;
     }
 
-    public function removeRadio(Radio $radio): self
+    public function removeRadio(RadioReponse $radio): self
     {
         if ($this->radios->removeElement($radio)) {
             // set the owning side to null (unless already changed)
-            if ($radio->getReponse() === $this) {
-                $radio->setReponse(null);
+            if ($radio->getReponses() === $this) {
+                $radio->setReponses(null);
             }
         }
 
@@ -112,29 +121,29 @@ class Reponse
     }
 
     /**
-     * @return Collection<int, Checkbox>
+     * @return Collection<int, CheckboxReponse>
      */
     public function getCheckboxs(): Collection
     {
         return $this->checkboxs;
     }
 
-    public function addCheckbox(Checkbox $checkbox): self
+    public function addCheckbox(CheckboxReponse $checkbox): self
     {
         if (!$this->checkboxs->contains($checkbox)) {
             $this->checkboxs[] = $checkbox;
-            $checkbox->setReponse($this);
+            $checkbox->setReponses($this);
         }
 
         return $this;
     }
 
-    public function removeCheckbox(Checkbox $checkbox): self
+    public function removeCheckbox(CheckboxReponse $checkbox): self
     {
         if ($this->checkboxs->removeElement($checkbox)) {
             // set the owning side to null (unless already changed)
-            if ($checkbox->getReponse() === $this) {
-                $checkbox->setReponse(null);
+            if ($checkbox->getReponses() === $this) {
+                $checkbox->setReponses(null);
             }
         }
 
