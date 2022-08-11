@@ -34,6 +34,11 @@ class Reponse
         $this->checkboxs = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

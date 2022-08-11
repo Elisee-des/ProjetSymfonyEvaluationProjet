@@ -2,10 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\InputReponse;
 use App\Entity\Reponse;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,20 +15,15 @@ class InputReponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('inputReponse', TextType::class, [
-                "label"=>"Votre reponse",
-                "attr"=>[
-                    "placeholder"=>"Saissisez ici votre reponse"
-                ]
-            ])
-            ->add('Soumettre', SubmitType::class)
-        ;
+            ->add('reponses')
+            ->add('reponse')
+            ->add('Soumettre', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Reponse::class,
+            'data_class' => InputReponse::class,
         ]);
     }
 }

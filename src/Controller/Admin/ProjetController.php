@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Checkbox;
 use App\Entity\Input;
+use App\Entity\InputReponse;
 use App\Entity\Projet;
 use App\Entity\Radio;
 use App\Entity\Reponse;
@@ -131,28 +132,30 @@ class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/finalisation/{id}/input/detail', name: 'finalisation_input_detail')]
-    public function inputDetail(Request $request, Projet $projet, Input $input, EntityManagerInterface $em): Response
+    #[Route('/finalisation/{id}/input/detail/', name: 'finalisation_input_detail')]
+    public function inputDetail(Request $request, Input $input, EntityManagerInterface $em): Response
     {
-        $inputReponse = new Reponse();
-        $idProjet = $projet->getId();
+        $inputReponse = new InputReponse();
         $form = $this->createForm(InputReponseType::class, $inputReponse);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
+            
+            // $inputReponse->setReponses($idProjet);
             $em->persist($inputReponse);
             $em->flush();
-
+            
             $this->addFlash(
-               'success',
-               'Vous avez soumis avec success votre reponse'
+                'success',
+                'Vous avez soumis avec success votre reponse'
             );
-
-            return $this->redirectToRoute('admin_projet_finalisation', ["id"=>$idProjet]);
+            // $idProjet = $inputReponse->getReponses()->getId();
+            
+            return $this->redirectToRoute('admin_projet_home');
         }
 
         return $this->render('admin/projet/criteres/input/detail.html.twig', [
-            "projet"=>$projet,
+            // "idProjet"=>$idProjet,
             "input"=>$input,
             "inputSubmitForm"=>$form->createView(),
         ]);

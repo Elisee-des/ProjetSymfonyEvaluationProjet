@@ -1,0 +1,46 @@
+{% extends "base.admin.html.twig" %}
+
+{% block title %}
+	Finalistion du input
+{% endblock %}
+
+{% block titre %}
+	Finalistion du input
+{% endblock %}
+{% block boutons %}
+	<a href="" class="btn btn-outline-secondary float-right ml-2">Checkbox</a>
+	<a href="" class="btn btn-outline-warning float-right ml-2">Radio</a>
+	<a href="{{ path("admin_projet_finalisation_input", {id: projet.id}) }}" class="btn btn-outline-behance float-right ml-2">Input</a>
+{% endblock %}
+{% block body %}
+	<div class="card"><br>
+		<div class="container">
+			<div class="card">
+				<div class="container">
+					<h3>Liste des champs de saisis</h3>
+					<table class="table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>Titre</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for input in inputs %}
+								<tr>
+									<th>{{input.label}}</th>
+									<th>
+										<a href="{{ path("admin_projet_finalisation_input_detail", {id: input.id}) }}" class="btn btn-outline-behance">Detail</a>
+									</th>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div><br>
+			</div><br>
+
+		</div>
+	</div><br>
+	<a href="{{ path("admin_projet_home") }}" class="btn btn-outline-primary">Retour</a>
+	<br>
+{% endblock %}
