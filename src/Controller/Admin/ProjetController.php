@@ -149,7 +149,6 @@ class ProjetController extends AbstractController
                 'success',
                 'Vous avez soumis avec success votre reponse'
             );
-            // $idProjet = $inputReponse->getReponses()->getId();
             
             return $this->redirectToRoute('admin_projet_home');
         }
