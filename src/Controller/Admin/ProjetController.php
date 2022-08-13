@@ -145,9 +145,10 @@ class ProjetController extends AbstractController
             $em->persist($inputReponse);
             $em->flush();
             
-            $this->addFlash(
+            $this->addFlash( 
+
                 'success',
-                'Vous avez soumis avec success votre reponse'
+                'Vous avez soumis avec success votre reponsjolk,lj'
             );
             
             return $this->redirectToRoute('admin_projet_home');
